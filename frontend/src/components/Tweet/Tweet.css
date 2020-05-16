@@ -1,0 +1,35 @@
+.tweet {
+    background-color: aliceblue;
+    min-width: 300px;
+    padding:24px;
+    border-radius: 15px;
+    position:relative;
+    margin-bottom: 5px;
+}
+
+.tweet strong{
+  display: block;
+    margin-bottom:16px;
+    color:#9e9ea5;
+}
+
+.tweet p {
+  margin: 15px 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.tweet button {
+  position:absolute;
+    right:24px;
+    top:24px;
+    border:0;
+}
+
+.tweet button img {
+  margin-right: 5px;
+}
+
+.tweet button:hover {
+  opacity: 0.7;
+}
