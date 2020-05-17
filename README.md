@@ -21,7 +21,7 @@
 
 <p> A aplicação imita interfaces do Twitter, permitindo que o usuário se registre, faça login, edite suas informações e poste em sua timeline.
 Foi construído um back-end em NodeJS e tanto o front quanto o back foram hospedados no Heroku Server </p>
-A aplicação pode ser acessada através  de <a href"https://tuite-feracode.herokuapp.com/">https://tuite-feracode.herokuapp.com/</a>
+A aplicação pode ser acessada através  de <a href="https://tuite-feracode.herokuapp.com/">https://tuite-feracode.herokuapp.com/</a>
 
 ## Tenologias:
 - NodeJS com Express
