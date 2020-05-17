@@ -1,5 +1,5 @@
 .tweet {
-    background-color: aliceblue;
+    background-color: #FFF;
     min-width: 300px;
     padding:24px;
     border-radius: 15px;
@@ -9,14 +9,14 @@
 
 .tweet strong{
   display: block;
-    margin-bottom:16px;
-    color:#9e9ea5;
+    margin-bottom:3px;
+    color:#42a1db;
 }
 
 .tweet p {
-  margin: 15px 0;
+  margin: 3px 0;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 10px;
 }
 
 .tweet button {
@@ -33,3 +33,4 @@
 .tweet button:hover {
   opacity: 0.7;
 }
+

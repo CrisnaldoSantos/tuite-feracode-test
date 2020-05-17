@@ -1,15 +1,15 @@
 import React from 'react';
 import { Card} from 'reactstrap';
-import {FiTrash2} from 'react-icons/fi';
+import {FaTwitter} from 'react-icons/fa';
 import './Tweet.css';
 
 export default function Tweet({tweet}) {
     return (
         <Card className="tweet">
             <button type="button" >
-                <FiTrash2 size={20} color="#a8a8b3"/>
+                <FaTwitter size={14} color="#a8a8b3"/>
             </button>
-            <strong>{tweet.author}</strong>
+            <strong>{tweet.author_name}</strong>
             <p>{tweet.content}</p>
         </Card>
     )

@@ -21,13 +21,36 @@ router.get('/:userId', AzureStorage.any(), async (req,res)=>{
 
 router.put('/:userId', AzureStorage.any(), async (req,res)=>{
     try{
-        const data ={
-            picture_url:req.files[0].url,
-            folder_url:req.files[1].url,
+        if(req.files.length===0){
+            return res.status(400).send({error: 'É necessário utilizar ao menos um dos campos para atualizar o perfil!'});
         }
-        const user = await User.findByIdAndUpdate(req.params.userId,
-            data,{new:true});
-        return res.send({user});
+        if(req.files.length===1){
+            if(req.files[0].fieldname==="picture_url"){
+                const data ={
+                    picture_url:req.files[0].url,
+                }
+                const user = await User.findByIdAndUpdate(req.params.userId,
+                    data,{new:true});
+                return res.send({user});
+            }else{
+                const data ={
+                    folder_url:req.files[0].url,
+                }
+                const user = await User.findByIdAndUpdate(req.params.userId,
+                    data,{new:true});
+                return res.send({user});
+            }
+
+        }else{
+            const data ={
+                picture_url:req.files[0].url,
+                folder_url:req.files[1].url,
+            }
+            const user = await User.findByIdAndUpdate(req.params.userId,
+                data,{new:true});
+            return res.send({user});
+        }
+        
     }catch{
         return res.status(400).send({error: 'Erro ao atualizar o perfil!'});
     }

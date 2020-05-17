@@ -1,22 +1,61 @@
-import React, { Fragment } from 'react';
-import {Container,Row,Col,Input} from 'reactstrap'
+import React, { useState, useEffect } from 'react';
+import {Container,Row,Col,Input, Button, Alert} from 'reactstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadTweets, createTweet } from '../../store/fetchActions';
 import './style.css';
-import Folder from '../../assets/folder.jpg'
-import Avatar from '../../assets/avatar.jpg'
 import Navbar from '../../components/Navbar';
 import Tweet from '../../components/Tweet';
 
+const Avatar = localStorage.getItem('tuite-picture');
 var headerStyle = {
-    backgroundImage: `url(${Folder})`,
+    backgroundImage: `url(${localStorage.getItem('tuite-folder')})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover'
 };
 
-const data = {
-    author:'@crisnaldo',
-    content:'Testando texto do tweet'
-}
-export default function Timeline(){    
+export default function Timeline(){
+    const [content,setContent] = useState('');
+    const [page,setPage] = useState(1);
+    const currentPage = useSelector(state => state.tweet.page);
+    const totalPages = useSelector(state => state.tweet.pages);
+    const dispatch = useDispatch();
+
+    const tweets = useSelector(state => state.tweet.docs);
+
+    useEffect(()=>{
+        setPage(1);
+        dispatch(loadTweets(1));
+    },[dispatch, page])
+
+    function handleSubmit(e){
+        if (e.keyCode !== 13) return;
+        else if (content !== ''){
+            e.preventDefault();
+            dispatch(createTweet(content));
+            setContent("");
+            
+        }
+        
+        dispatch(loadTweets(page))
+        
+    }
+
+
+    //Função para retroceder a página
+    function prevPage(){
+        if (currentPage === 1) return;
+        const pageNumber = currentPage - 1;
+        dispatch(loadTweets(pageNumber));
+    };
+    
+    //Função para avançar a página  
+    function nextPage(){
+        if (currentPage === totalPages) return;
+        const pageNumber = currentPage + 1;
+        dispatch(loadTweets(pageNumber));
+    };
+
+
     return(
         <div className="timeline-wrapper">
             <Navbar/>
@@ -25,27 +64,32 @@ export default function Timeline(){
                     <Row align="center">
                         <Col xs='12' sm='3' lg='2' className="mt-3">
                             <img src={Avatar}  alt="avatar" />
-                            
                         </Col>
                         <Col xs='12' sm='9' lg='10' className="mt-3">
                             <form className="tweet-form">
-                                <Input type="textarea" placeholder="O que está acontecendo?"/>
+                                <Input value={content} onChange={e=> setContent(e.target.value)} onKeyDown={handleSubmit} type="textarea" placeholder={`O que está acontecendo, ${localStorage.getItem('tuite-username')}?`}/>
                             </form>
                         </Col>
                     </Row>    
                 </Container>
             </header>
             <main className="mt-2">
-            <Fragment>
                 <Container>
-                    <Tweet tweet={data}/>
-                    <Tweet tweet={data}/>
-                    <Tweet tweet={data}/>
-                    <Tweet tweet={data}/>
-                    <Tweet tweet={data}/>
-                    <Tweet tweet={data}/>
+                    {tweets.map((tweet, index) => <Tweet key={index} tweet={tweet} />)}
                 </Container>
-            </Fragment>
+                <Container>
+                    <Row>
+                        <Col xs="6" align="center">
+                            <Button hidden={currentPage===1} size="sm" block className="button-actions" onClick={prevPage}>Mais recentes</Button>
+                        </Col>
+                        <Col xs="6" align="center">
+                            <Button hidden={currentPage===totalPages} size="sm" block className="button-actions" onClick={nextPage}>Mais antigos</Button>
+                        </Col>
+                    </Row>
+                </Container>
+                {tweets.length === 0 && 
+                    <Alert color="primary">Sem nenhum tuite!</Alert>
+                }
             </main>
         </div>
     );
