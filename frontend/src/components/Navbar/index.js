@@ -6,16 +6,25 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
+  Button
 } from 'reactstrap';
 import {FaEdit,FaPowerOff} from 'react-icons/fa';
 import Logo from '../../assets/twitter.svg'
-
+import {useDispatch} from 'react-redux'
+import {authLogout} from '../../store/fetchActions'
 
 const Example = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+  const dispatch =  useDispatch();
+  function handleLogout(){
+    dispatch(authLogout())
+  }
+
+  function handleNav(){
+    window.location.pathname = '/settings';
+  }
 
   return (
     <div>
@@ -25,10 +34,10 @@ const Example = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/settings"><FaEdit/> Editar perfil</NavLink>
+              <Button className="bg-light border-light text-muted" onClick={handleNav}><FaEdit /> Editar perfil</Button>
             </NavItem>
             <NavItem>
-              <NavLink href="/login"><FaPowerOff /> Logout</NavLink>
+              <Button className="bg-light border-light text-muted" onClick={handleLogout}><FaPowerOff /> Logout</Button>
             </NavItem>
           </Nav>
         </Collapse>

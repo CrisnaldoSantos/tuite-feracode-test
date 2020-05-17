@@ -65,5 +65,24 @@
       width:100%;
   }
 
+  .timeline-wrapper main .button-actions{
+    margin: 7px 0 0;
+    background: #fff;
+    border-radius: 5px;
+    height: 44px;
+    border: 1px solid #eeeaea;
+    color: #4bb0ee;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .timeline-wrapper main .button-actions:hover{
+      background: #42a1db;
+      color:#fff
+    
+  }
+
 
   

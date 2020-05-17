@@ -30,8 +30,8 @@ router.post('/register', async (req,res) => {
         const data = {
             username:nick,
             email:req.body.email,
-            picture_url:"",
-            folder_url:"",
+            picture_url:"https://thumbs.dreamstime.com/b/imagem-do-avatar-perfil-no-fundo-cinzento-142213585.jpg",
+            folder_url:"https://i1.wp.com/vilataopontal.com/wp-content/uploads/2017/09/wallpaper-azul-papel-de-parede-azul-fundo-15.jpg?zoom=2.625&fit=2048%2C1280",
             password:req.body.password,
         }
         const user = await User.create(data);
